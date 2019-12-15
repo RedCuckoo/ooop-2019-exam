@@ -96,7 +96,7 @@ Object* Object::getParent() {
 \details Setter method for the parent of the object
 */
 void Object::setParent(Object* parent) {
-	return parent;
+	this->parent = parent;
 }
 
 /*!
@@ -106,4 +106,37 @@ void Object::setParent(Object* parent) {
 */
 bool Object::isUndef() {
 	return ((name == "" && type == "" && position == "" && height == 0 && width == 0) ? true : false);
+}
+
+/*!
+\brief Helper function for delta calculation
+\details The function makes parameter positive and returns some part of maxProbability depending on it's value.
+maxProbability is the biggest amount of probability (out of 1) the parameter can hold.
+\param delta Given parameter to be normized
+\return Normized delta
+*/
+double Object::calcDelta(int delta, const double maxProbability){
+	if (delta < 0)
+		delta = -delta;
+
+	++delta;
+
+	return (maxProbability / delta);
+}
+
+/*!
+\brief Helper function for delta calculation
+\details The function calculates the probablity, half of it comes from the size difference (between object and canvas),
+another half comes from the random value
+\param objHeight Height of the object
+\param height Height of the image
+\param objWidth Width of the object
+\param width Width of the object
+\return Normized delta
+*/
+double Object::calcHalfProbability(size_t objHeight, size_t height, size_t objWidth, size_t width) {
+	double curProbability = calcDelta(height - objHeight) + calcDelta(width - objWidth);
+	curProbability = fmod(curProbability, 0.5);
+	curProbability += fmod((double)rand(), 0.5);
+	return curProbability;
 }

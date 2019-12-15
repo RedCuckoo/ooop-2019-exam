@@ -9,6 +9,7 @@
 #define OBJECT_H
 
 #include <string>
+#include <list>
 
 /*!
 \brief Object class
@@ -22,6 +23,9 @@ protected:
 	size_t height;
 	size_t width;
 	Object* parent;
+	
+	static double calcDelta(int delta, const double maxProbability = 0.5);
+	static double calcHalfProbability(size_t objHeight, size_t height, size_t objWidth, size_t width);
 public:
 	Object();
 	Object(std::string name, std::string type, std::string position, int height, int width, Object* parent = nullptr);
@@ -33,8 +37,8 @@ public:
 	Object* getParent();
 	void setParent(Object* parent);
 	bool isUndef();
-	
-	virtual void recognize() = 0;
+
+	virtual std::list<Object*> recognize(size_t height, size_t width, const std::list<Object*>& allObjects) = 0;
 };
 
 #endif //OBJECT_H
