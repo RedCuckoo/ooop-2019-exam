@@ -21,8 +21,8 @@ private:
 public:
 	PartsRecognizableObject()
 		: Object() {};
-	PartsRecognizableObject(std::string name, std::string type, std::string position, int height, int width, Object* parent = nullptr)
-		: Object(name, type, position, height, width, parent) {};
+	PartsRecognizableObject(std::string name, std::string type, std::string position, int height, int width, std::string parentName = "")
+		: Object(name, type, position, height, width, parentName) {};
 
 	std::list<Object*> recognize(size_t height, size_t width, const std::list<Object*>& allObjects);
 };
