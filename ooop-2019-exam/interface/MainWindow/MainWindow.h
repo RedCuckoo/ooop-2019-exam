@@ -1,6 +1,12 @@
+/*!
+	\file
+	\brief Header file containing declaration of the Qt interface class
+
+	This file contains definition of the interfaceof the main window provided in the variant
+*/
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 
 #include <QtWidgets/QMainWindow>
 #include <list>

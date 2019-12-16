@@ -1,11 +1,22 @@
-#pragma once
+/*!
+	\file
+	\brief Header file containing declaration of the Qt interface class
+
+	This file contains definition of the interface window which shows the results of the algorithm provided in the variant
+*/
+
+#ifndef ALGORITHMRESULTS_H
+#define ALGORITHMRESULTS_H
 
 #include <QDialog>
 #include "ui_AlgorithmResults.h"
 #include "data_types/Object.h"
 
-class AlgorithmResults : public QDialog
-{
+/*!
+\brief Interface window
+\details Current  window show the results of the algorithm for the selected items
+*/
+class AlgorithmResults : public QDialog{
 	Q_OBJECT
 
 public:
@@ -15,3 +26,5 @@ public:
 private:
 	Ui::AlgorithmResults ui;
 };
+
+#endif //ALGORITHMRESULTS_H

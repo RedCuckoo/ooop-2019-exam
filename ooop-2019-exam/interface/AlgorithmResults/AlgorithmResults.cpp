@@ -1,6 +1,12 @@
 #include "AlgorithmResults.h"
 #include <QTableWidgetItem>
 
+/*!
+\brief Constructor for interface window AlgorithmResults
+\detail Sets the window according to the provided parameters
+\param to_demonstrate The list of the objects for which the information has to be shown
+\param algorithmResults The results of the algorithm (described in Simulation)
+*/
 AlgorithmResults::AlgorithmResults(std::list<Object*> to_demonstrate, std::vector<std::pair<Object*, std::vector<size_t>>> algorithmResults, QWidget *parent) : QDialog(parent){
 	ui.setupUi(this);
 	for (size_t i = 0, size = to_demonstrate.size(); i < size; ++i)
@@ -17,17 +23,18 @@ AlgorithmResults::AlgorithmResults(std::list<Object*> to_demonstrate, std::vecto
 				}
 			}
 					
-
 			if (columns == 0)
 				ui.tableWidget->setItem(rows, columns, new QTableWidgetItem(QString::fromStdString((*demIt)->getName())));
 			else
 				ui.tableWidget->setItem(rows, columns, new QTableWidgetItem(QString::fromStdString(std::to_string(algorithmResults[mark].second[columns - 1]))));
-			//ui.tableWidget->setItem(rows, columns, new QTableWidgetItem((*(*demIt))[columns]));
 		}
 		++demIt;
 	}
 }
 
-AlgorithmResults::~AlgorithmResults()
-{
+/*!
+\brief Destructor for interface window AlgorithmResults
+*/
+AlgorithmResults::~AlgorithmResults(){
+
 }

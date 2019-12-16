@@ -4,6 +4,13 @@
 #include <QMessageBox>
 #include "interface/AlgorithmResults/AlgorithmResults.h"
 
+/*!
+\brief Constructor for main interface window MainWindow
+\detail Sets the window according to the provided parameters
+\param allImages The list of all Images in the system
+\param allObjects The list of all Objects in the system
+\param algorithmResults The results of the algorithm (described in Simulation)
+*/
 MainWindow::MainWindow(const std::list<Image>& allImages, const std::list<Object*>& allObjects, std::vector<std::pair<Object*, std::vector<size_t>>> algorithmResults, QWidget *parent) : QMainWindow(parent){
 	ui.setupUi(this);
 
@@ -24,27 +31,14 @@ MainWindow::MainWindow(const std::list<Image>& allImages, const std::list<Object
 		}
 		++objIt;
 	}
-
-	/*model = new QStringListModel;
-	for (auto i : allObjects)
-		stringList.push_back(QString::fromStdString(i->getName()));*/
-
-
-
-
-	//ui.table
-	
-
-
-	//model->setStringList(stringList);
-	//ui.tableView->setModel(model);
-	//model->setStringList(stringList);
-	//ui.tableView->setModel(model);
-
-
-	//ui.tableWidget->setItem()
 }
 
+/*!
+\brief A slot for the main interface window
+\details Opens up a modal DetailedView window, based on the object in the row
+\param row The index of a row in the tableWidget
+\param column The index of a column the tableWidget
+*/
 int	MainWindow::on_tableWidget_cellDoubleClicked(int row, int column) {
 	std::list<Object*>::iterator objIt = allObjects.begin();
 	std::advance(objIt, row);
@@ -54,6 +48,10 @@ int	MainWindow::on_tableWidget_cellDoubleClicked(int row, int column) {
 	return dv->exec();
 }
 
+/*!
+\brief A slot for the main interface window
+\details Opens up a modal AlgorithmResults window, based on the selected objects
+*/
 int MainWindow::on_actionAlgorithm_view_triggered() {
 	if (!ui.tableWidget->selectedItems().size()) {
 		QMessageBox* warn = new QMessageBox;
@@ -78,7 +76,5 @@ int MainWindow::on_actionAlgorithm_view_triggered() {
 		algRes->show();
 		return algRes->exec();
 	}
-
-
 	return 0;
 }

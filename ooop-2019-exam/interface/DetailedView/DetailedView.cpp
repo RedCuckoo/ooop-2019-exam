@@ -3,6 +3,14 @@
 #include "data_types/Image.h"
 #include <QTableWidgetItem>
 
+/*!
+\brief Constructor for interface window DetailedView
+\detail Sets the window according to the provided parameters
+\param objIndex The index of the object in the common list
+\param objName The name of the object
+\param present The list of the Images where current object is present
+\param recognized The list of the Images where current object was recognized
+*/
 DetailedView::DetailedView(size_t objIndex, QString objName, const std::vector<std::string>& present, const std::vector<std::string>& recognized, QWidget *parent)
 	: QDialog(parent)
 {
@@ -26,18 +34,11 @@ DetailedView::DetailedView(size_t objIndex, QString objName, const std::vector<s
 		ui.tableWidget_right->insertRow(i);
 		ui.tableWidget_right->setItem(i, 0, new QTableWidgetItem(QString::fromStdString(recognized[i])));
 	}
-
-	//QStringList stringList;
-	//model = new QStringListModel;
-	//for (auto i : allObjects)
-	//	stringList.push_back(QString::fromStdString(i->getName()));
-
-	//model->setStringList(stringList);
-
-	//ui.tableView->setModel(model);
-
 }
 
-DetailedView::~DetailedView()
-{
+/*!
+\brief Destructor for interface window DetailedView
+*/
+DetailedView::~DetailedView(){
+
 }
