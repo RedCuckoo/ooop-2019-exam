@@ -4,13 +4,13 @@
 */
 
 #include "Simulation.h"
-#include "BiRecognizableObject.h"
-#include "PartsRecognizableObject.h"
-#include "SimilarRecognizableObject.h"
-#include "NeighbourRecognizableObject.h"
+#include "data_types/typized_objects/BiRecognizableObject.h"
+#include "data_types/typized_objects/PartsRecognizableObject.h"
+#include "data_types/typized_objects/SimilarRecognizableObject.h"
+#include "data_types/typized_objects/NeighbourRecognizableObject.h"
 #include <fstream>
 #include <qdebug.h>
-#include "MainWindow.h"
+#include "interface/MainWindow/MainWindow.h"
 #include <qapplication.h>
 #include <algorithm>
 

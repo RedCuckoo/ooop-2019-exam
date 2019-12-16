@@ -10,8 +10,8 @@
 #include <string>
 #include <list>
 #include <vector>
-#include "Object.h"
-#include "Image.h"
+#include "data_types/Object.h"
+#include "data_types/Image.h"
 
 class Simulation{
 private:

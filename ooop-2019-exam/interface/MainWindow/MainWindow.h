@@ -5,9 +5,9 @@
 #include <QtWidgets/QMainWindow>
 #include <list>
 #include "ui_MainWindow.h"
-#include "Object.h"
+#include "data_types/Image.h"
+#include "data_types/Object.h"
 #include <qstringlistmodel.h>
-#include "Image.h"
 
 class MainWindow : public QMainWindow{
 	Q_OBJECT

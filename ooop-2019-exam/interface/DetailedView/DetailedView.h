@@ -2,7 +2,6 @@
 
 #include <QDialog>
 #include "ui_DetailedView.h"
-#include "Image.h"
 #include <qstringlistmodel.h>
 
 class DetailedView : public QDialog{

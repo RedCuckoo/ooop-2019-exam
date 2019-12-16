@@ -2,7 +2,7 @@
 
 #include <QDialog>
 #include "ui_AlgorithmResults.h"
-#include "Object.h"
+#include "data_types/Object.h"
 
 class AlgorithmResults : public QDialog
 {

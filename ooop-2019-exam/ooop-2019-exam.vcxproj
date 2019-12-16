@@ -88,17 +88,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="data_types\Image.cpp" />
+    <ClCompile Include="data_types\Object.cpp" />
+    <ClCompile Include="data_types\typized_objects\BiRecognizableObject.cpp" />
+    <ClCompile Include="data_types\typized_objects\NeighbourRecognizableObject.cpp" />
+    <ClCompile Include="data_types\typized_objects\PartsRecognizableObject.cpp" />
+    <ClCompile Include="data_types\typized_objects\SimilarRecognizableObject.cpp" />
+    <ClCompile Include="interface\AlgorithmResults\AlgorithmResults.cpp" />
+    <ClCompile Include="interface\DetailedView\DetailedView.cpp" />
+    <ClCompile Include="interface\MainWindow\MainWindow.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="simulation\Simulation.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="MainWindow.h" />
+    <ClInclude Include="data_types\Image.h" />
+    <ClInclude Include="data_types\Object.h" />
+    <ClInclude Include="data_types\typized_objects\BiRecognizableObject.h" />
+    <ClInclude Include="data_types\typized_objects\NeighbourRecognizableObject.h" />
+    <ClInclude Include="data_types\typized_objects\PartsRecognizableObject.h" />
+    <ClInclude Include="data_types\typized_objects\SimilarRecognizableObject.h" />
+    <QtMoc Include="interface\AlgorithmResults\AlgorithmResults.h" />
+    <QtMoc Include="interface\DetailedView\DetailedView.h" />
+    <QtMoc Include="interface\MainWindow\MainWindow.h" />
+    <ClInclude Include="simulation\Simulation.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="MainWindow.ui" />
+    <QtUic Include="interface\AlgorithmResults\AlgorithmResults.ui" />
+    <QtUic Include="interface\DetailedView\DetailedView.ui" />
+    <QtUic Include="interface\MainWindow\MainWindow.ui" />
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="MainWindow.qrc" />
+    <QtRcc Include="interface\MainWindow\MainWindow.qrc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

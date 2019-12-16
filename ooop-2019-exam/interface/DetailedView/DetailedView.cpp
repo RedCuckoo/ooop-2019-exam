@@ -1,6 +1,6 @@
 #include "DetailedView.h"
 #include <qstringlistmodel.h>
-#include "Image.h"
+#include "data_types/Image.h"
 #include <QTableWidgetItem>
 
 DetailedView::DetailedView(size_t objIndex, QString objName, const std::vector<std::string>& present, const std::vector<std::string>& recognized, QWidget *parent)

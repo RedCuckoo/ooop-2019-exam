@@ -4,6 +4,7 @@
 */
 
 #include "NeighbourRecognizableObject.h"
+#include <list>
 
 /*!
 \brief Helper function for the algorithm of recognition

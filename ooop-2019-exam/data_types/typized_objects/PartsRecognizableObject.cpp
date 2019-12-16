@@ -4,6 +4,7 @@
 */
 
 #include "PartsRecognizableObject.h"
+#include <list>
 
 /*!
 \brief Helper function, coverage check

@@ -8,7 +8,7 @@
 #ifndef PARTSRECOGNIZABLEOBJECT_H
 #define PARTSRECOGNIZABLEOBJECT_H
 
-#include "Object.h"
+#include "data_types/Object.h"
 
 /*!
 \brief Typified Object

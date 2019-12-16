@@ -1,8 +1,8 @@
 #include "MainWindow.h"
 #include <qstringlistmodel.h>
-#include "DetailedView.h"
+#include "interface/DetailedView/DetailedView.h"
 #include <QMessageBox>
-#include "AlgorithmResults.h"
+#include "interface/AlgorithmResults/AlgorithmResults.h"
 
 MainWindow::MainWindow(const std::list<Image>& allImages, const std::list<Object*>& allObjects, std::vector<std::pair<Object*, std::vector<size_t>>> algorithmResults, QWidget *parent) : QMainWindow(parent){
 	ui.setupUi(this);
