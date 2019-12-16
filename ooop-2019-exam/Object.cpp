@@ -5,6 +5,7 @@
 
 #include "Object.h"
 #include <string>
+#include <vector>
 
 /*!
 \brief Constructor for class Object
@@ -28,13 +29,13 @@ Object::Object() {
 \param width Width of the image of the object (in pixels)
 \param parent Parent object of the current object (e.g object Human will be a parent object for the object Hand)
 */
-Object::Object(std::string name, std::string type, std::string position, int height, int width, Object* parent) {
+Object::Object(std::string name, std::string type, std::string position, int height, int width, std::string parentName) {
 	this->name = name;
 	this->type = type;
 	this->position = position;
 	this->height = ((height>0) ? height : -height);
 	this->width = ((width >0) ? width : -width);
-	this->parent = parent;
+	this->parentName = parentName;
 }
 
 /*!
@@ -95,8 +96,16 @@ Object* Object::getParent() {
 \brief Setter method
 \details Setter method for the parent of the object
 */
-void Object::setParent(Object* parent) {
-	this->parent = parent;
+void Object::setParent(const std::list<Object*>& allObjects) {
+	if (parentName == "")
+		return;
+
+	for (auto i : allObjects) {
+		if (i->type == parentName) {
+			parent = i;
+			return;
+		}
+	}
 }
 
 /*!
@@ -139,4 +148,44 @@ double Object::calcHalfProbability(size_t objHeight, size_t height, size_t objWi
 	curProbability = fmod(curProbability, 0.5);
 	curProbability += fmod((double)rand(), 0.5);
 	return curProbability;
+}
+
+QString Object::operator[](size_t i) const {
+	std::vector<QString> res = {
+		QString::fromStdString(name),
+		QString::fromStdString(type),
+		QString::fromStdString(position),
+		QString::fromStdString(std::to_string(height) + 'x' + std::to_string(width)),
+		QString::fromStdString(parentName)
+	};
+	return res[i];
+}
+
+bool Object::operator==(const Object& to_compare) const {
+	return (name == to_compare.name
+		&& type == to_compare.type
+		&& position == to_compare.position
+		&& height == to_compare.height
+		&& width == to_compare.width
+		&& parentName == to_compare.parentName);
+}
+
+void Object::addBelong(std::string name) {
+	belong.push_back(name);
+}
+
+void Object::addRecognized(std::string name) {
+	recognized.push_back(name);
+}
+
+bool Object::isNotPresent() const{
+	return (belong.size() == 0 && recognized.size() == 0);
+}
+
+std::vector<std::string> Object::getBelong() const{
+	return belong;
+}
+
+std::vector<std::string> Object::getRecognized() const{
+	return recognized;
 }

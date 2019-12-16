@@ -12,6 +12,7 @@
 #include <qdebug.h>
 #include "MainWindow.h"
 #include <qapplication.h>
+#include <algorithm>
 
 std::vector<std::string> Simulation::parseImage(std::string input) {
 	std::vector<std::string> res;
@@ -44,6 +45,7 @@ std::vector<std::string> Simulation::parseImage(std::string input) {
 	\param [in] simulation_folder_name The name of the folder which contains files for system simulation
 */
 Simulation::Simulation(const std::string& simulation_folder_name) {
+	
 	std::string working_string;
 	std::vector<std::string> parsingRes;
 	QString dateFormat = "dd MM yyyy hh:mm:ss";
@@ -96,14 +98,138 @@ Simulation::Simulation(const std::string& simulation_folder_name) {
 	}
 
 	input.close();
+
+	for (auto i : objects) {
+		algorithmResults.push_back(std::pair <Object*, std::vector<size_t>>{i, { 0,0,0,0 }});
+		objects_vector.push_back(i);
+	}
 }
 
-std::pair<std::list<Image>,std::list<Object*>> Simulation::run(const QDateTime& from, const QDateTime& to) {
-	std::list<Image> generatedImages;
+std::list<Object*>::iterator Simulation::findObject(const Object* to_find) {
+	for (auto i = objects.begin(), end = objects.end(); i != end; ++i) {
+		if (to_find == *i)
+			return i;
+	}
+	return objects.end();
+}
+
+std::list<std::list<Object*>> Simulation::findNotIsYes(std::list<Object*> imagesObjects, std::list<Object*> recognized) {
+	std::list<Object*> is;
+	bool notInc = false;
+	for (auto im = imagesObjects.begin(); im != imagesObjects.end();) {
+		notInc = false;
+		for (auto rec = recognized.begin(); rec != recognized.end();) {
+			if (**im == (**rec)) {
+				is.push_back(*im);
+				
+				im = imagesObjects.erase(im);
+				if (im == imagesObjects.begin())
+					notInc = true;
+				rec = recognized.erase(rec);
+				if (rec == recognized.begin())
+					continue;
+			}
+			if(rec !=recognized.end())
+				++rec;
+		}
+		if(!notInc && im != imagesObjects.end())
+			++im;
+	}
+	//first is positive negative, middle is positive positive, last is negative positive
+	return std::list<std::list<Object*>>{imagesObjects, is, recognized};
+}
+
+
+void Simulation::calcResult(const std::list<Object*>& imagesObjects, const std::list<Object*>& recognized) {
+	std::list<std::list<Object*>> notIsYes = findNotIsYes(imagesObjects, recognized);
+
+	std::vector<bool> changedObject(objects.size());
+	for (size_t i = 0, size = changedObject.size(); i < size; ++i)
+		changedObject[i] = 0;
+
+	//negative negative - 0
+	//negative positive - 1
+	//positive negative - 2
+	//positive positive - 3
+
+	auto notIsYesIt = notIsYes.begin();
+	std::vector<Object*>::iterator objIt;
+	size_t distance;
+	//these are positive negative (present but not recognized)
+	if (notIsYesIt != notIsYes.end()) {
+		for (auto i : *notIsYesIt) {
+			if (i->isUndef())
+				continue;
+
+			objIt = std::find(objects_vector.begin(), objects_vector.end(), i);
+			distance = std::distance(objects_vector.begin(), objIt);
+			++algorithmResults[distance].second[2];
+			changedObject[distance] = 1;
+		}
+	}
+
+	++notIsYesIt;
+	//positive positive
+	if (notIsYesIt != notIsYes.end()) {
+		for (auto i : *notIsYesIt) {
+			if (i->isUndef())
+				continue;
+			objIt = std::find(objects_vector.begin(), objects_vector.end(), i);
+			distance = std::distance(objects_vector.begin(), objIt);
+			++algorithmResults[distance].second[3];
+			changedObject[distance] = 1;
+		}
+	}
+
+	++notIsYesIt;
+	//negative positive
+	if (notIsYesIt != notIsYes.end()) {
+		for (auto i : *notIsYesIt) {
+			if (i->isUndef())
+				continue;
+			objIt = std::find(objects_vector.begin(), objects_vector.end(), i);
+			distance = std::distance(objects_vector.begin(), objIt);
+			++algorithmResults[distance].second[1];
+			changedObject[distance] = 1;
+		}
+	}
+
+	//negative negative
+	for (size_t i = 0, size = changedObject.size(); i < size; ++i) {
+		if (changedObject[i]) {
+			++algorithmResults[i].second[0];
+		}
+	}
+}
+
+std::pair<std::list<Image>,std::list<Object*>> Simulation::run(const QDateTime& from, const QDateTime& to, std::vector<std::pair<Object*, std::vector<size_t>>>& algorithmResults) {
+	std::vector<Image> generatedImages;
 	for (auto i : images) {
 		if (i.getTimeCreated() >= from && i.getTimeCreated() <= to)
 			generatedImages.push_back(i);
 	}
+	
+	std::sort(generatedImages.begin(), generatedImages.end(), [](const Image& im1, const Image& im2) {
+		return (im1.getTimeCreated() < im2.getTimeCreated());
+		});
+	
+	std::list<Object*> onImage;
+	std::list<Object*> recognized;
+	for (auto i : generatedImages) {
+		onImage = i.getPresentObject();
+		recognized = i.recognize(objects);
 
+		for (auto j : onImage) {
+			j->addBelong(i.getName());
+		}
+		
+		for (auto j : recognized) {
+			j->addRecognized(i.getName());
+		}
+
+		calcResult(onImage, recognized);
+	}
+	
+	algorithmResults = this->algorithmResults;
 	return std::pair<std::list<Image>, std::list<Object*>>{images, objects};
 }

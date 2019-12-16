@@ -26,14 +26,16 @@ private:
 	QDateTime timeCreated;
 	size_t height;
 	size_t width;
-	std::list<const Object&> presentObjects;
+	std::list<Object*> presentObjects;
+	std::vector<std::string> parsePresentObjectNames(std::string input) const;
 public:
-	Image(std::string name, QDateTime timeCreated, size_t height, size_t width, std::list<const Object&> presentObjects);
-	std::string getName();
-	QDateTime getTimeCreated();
-	size_t getHeight();
-	size_t getWidth();
-	std::list<const Object&> getPresentObject();
+	Image(std::string name, QDateTime timeCreated, size_t height, size_t width, std::list<Object*> allObjects, std::string presentObjectNames);
+	std::string getName() const;
+	QDateTime getTimeCreated() const;
+	size_t getHeight() const;
+	size_t getWidth() const;
+	std::list<Object*> getPresentObject() const;
+	std::list<Object*> recognize(const std::list<Object*>& allObjects);
 };
 
 #endif //IMAGE_H

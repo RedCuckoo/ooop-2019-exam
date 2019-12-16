@@ -18,7 +18,10 @@ The equal chance of returning one of the objects that are either the same by its
 std::list<Object*> NeighbourRecognizableObject::recognize(size_t height, size_t width, const std::list<Object*>& allObjects) {
 	std::list<Object*> neighbourObjects;
 	int size = rand() % (allObjects.size() / 2);
-	size = rand() % size;
+
+	if (size != 0)
+		size = rand() % size;
+	
 	auto cur = std::find(allObjects.begin(), allObjects.end(), this);
 	
 	for (auto i = cur; i != allObjects.end(); ++i) {
