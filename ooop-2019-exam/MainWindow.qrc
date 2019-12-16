@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="MainWindow">
+    <qresource prefix="/icons">
+        <file>Resources/search.png</file>
     </qresource>
 </RCC>

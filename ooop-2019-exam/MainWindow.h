@@ -13,14 +13,16 @@ class MainWindow : public QMainWindow{
 	Q_OBJECT
 
 public:
-	MainWindow(const std::list<Image>& allImages, const std::list<Object*>& allObjects, QWidget *parent = Q_NULLPTR);
+	MainWindow(const std::list<Image>& allImages, const std::list<Object*>& allObjects, std::vector<std::pair<Object*, std::vector<size_t>>> algorithmResults, QWidget *parent = Q_NULLPTR);
 private:
 	Ui::MainWindowClass ui;
 	QStringListModel* model;
 	std::list<Image> allImages;
 	std::list<Object*> allObjects;
+	std::vector<std::pair<Object*, std::vector<size_t>>> algorithmResults;
 private slots:
 	int on_tableWidget_cellDoubleClicked(int, int);
+	int on_actionAlgorithm_view_triggered();
 };
 
 #endif MAINWINDOW_H

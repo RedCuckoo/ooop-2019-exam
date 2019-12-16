@@ -1,12 +1,15 @@
 #include "MainWindow.h"
 #include <qstringlistmodel.h>
 #include "DetailedView.h"
+#include <QMessageBox>
+#include "AlgorithmResults.h"
 
-MainWindow::MainWindow(const std::list<Image>& allImages, const std::list<Object*>& allObjects, QWidget *parent) : QMainWindow(parent){
+MainWindow::MainWindow(const std::list<Image>& allImages, const std::list<Object*>& allObjects, std::vector<std::pair<Object*, std::vector<size_t>>> algorithmResults, QWidget *parent) : QMainWindow(parent){
 	ui.setupUi(this);
 
 	this->allImages = allImages;
 	this->allObjects = allObjects;
+	this->algorithmResults = algorithmResults;
 
 	QStringList stringList;
 
@@ -43,8 +46,39 @@ MainWindow::MainWindow(const std::list<Image>& allImages, const std::list<Object
 }
 
 int	MainWindow::on_tableWidget_cellDoubleClicked(int row, int column) {
-	DetailedView* dv = new DetailedView(allImages, allObjects, );
+	std::list<Object*>::iterator objIt = allObjects.begin();
+	std::advance(objIt, row);
+	DetailedView* dv = new DetailedView(row, ui.tableWidget->item(row,0)->text(), (*objIt)->getBelong(), (*objIt)->getRecognized());
 	dv->setModal(true);
 	dv->show();
 	return dv->exec();
+}
+
+int MainWindow::on_actionAlgorithm_view_triggered() {
+	if (!ui.tableWidget->selectedItems().size()) {
+		QMessageBox* warn = new QMessageBox;
+		warn->setText("<p align = 'center'><br>Please, select a few objects<\\br><\\p>");
+		warn->setWindowTitle("Empty selection");
+		warn->setModal(true);
+		warn->show();
+		return warn->exec();
+	}
+	else {
+		std::list<Object*> to_show;
+		std::list<Object*>::iterator listIt;
+		for (size_t i = 0, size = ui.tableWidget->rowCount(); i < size; ++i) {
+			listIt = allObjects.begin();
+			if (ui.tableWidget->isItemSelected(ui.tableWidget->item(i, 0))) {
+				std::advance(listIt, i);
+				to_show.push_back(*listIt);
+			}
+		}
+
+		AlgorithmResults* algRes = new AlgorithmResults(to_show, algorithmResults);
+		algRes->show();
+		return algRes->exec();
+	}
+
+
+	return 0;
 }
