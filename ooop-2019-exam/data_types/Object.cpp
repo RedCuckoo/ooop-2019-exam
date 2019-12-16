@@ -150,6 +150,11 @@ double Object::calcHalfProbability(size_t objHeight, size_t height, size_t objWi
 	return curProbability;
 }
 
+/*!
+\brief Overloaded operator[]
+\details Returns on of the fields depending in the index
+\param i Provided index
+*/
 QString Object::operator[](size_t i) const {
 	std::vector<QString> res = {
 		QString::fromStdString(name),
@@ -161,6 +166,12 @@ QString Object::operator[](size_t i) const {
 	return res[i];
 }
 
+/*!
+\brief Overloaded operator==
+\details Returns on of the fields depending in the index
+\param to_compare The Object which is comparing with the current Object
+\return True value if they are equal, false value otherwise
+*/
 bool Object::operator==(const Object& to_compare) const {
 	return (name == to_compare.name
 		&& type == to_compare.type
@@ -170,22 +181,46 @@ bool Object::operator==(const Object& to_compare) const {
 		&& parentName == to_compare.parentName);
 }
 
+/*!
+\brief Setter method
+\details Adds name to the list of the images, where this object is present
+\param name Name of the Image
+*/
 void Object::addBelong(std::string name) {
 	belong.push_back(name);
 }
 
+/*!
+\brief Setter method
+\details Adds name to the list of the images, where this object is recognized
+\param name Name of the Image
+*/
 void Object::addRecognized(std::string name) {
 	recognized.push_back(name);
 }
 
+/*!
+\brief Checks if the object is present on some image
+\return True value if the object is present on some image, false value otherwise
+*/
 bool Object::isNotPresent() const{
 	return (belong.size() == 0 && recognized.size() == 0);
 }
 
+/*!
+\brief Getter method
+\details Getter method for the list of the names of the images where this object belong
+\return List of the names of the images where this object belong
+*/
 std::vector<std::string> Object::getBelong() const{
 	return belong;
 }
 
+/*!
+\brief Getter method
+\details Getter method for the list of the names of the images where this object was recognized
+\return List of the names of the images where this object was recognized
+*/
 std::vector<std::string> Object::getRecognized() const{
 	return recognized;
 }

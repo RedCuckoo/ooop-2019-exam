@@ -10,7 +10,12 @@
 
 size_t Image::idCounter = 0;
 
-//input given is "objName1, objName2, ..."
+/*!
+\brief Get fields from the inout
+\details The function is parsing input string and gets the fields in the form
+\input Input string contains different objects name, separated with a ','
+\return The vector of the names of the objects
+*/
 std::vector<std::string> Image::parsePresentObjectNames(std::string input) const {
 	size_t prevPos = 0;
 	std::vector<std::string> res;
@@ -97,6 +102,12 @@ std::list<Object*> Image::getPresentObject() const{
 	return presentObjects;
 }
 
+/*!
+\brief Recognition function for the Image
+\details The function runs the recognition algorithm for each object
+\param allObjects The list of all existing objects in the system
+\return Returns the list of the Objects which were recognized
+*/
 std::list<Object*> Image::recognize(const std::list<Object*>& allObjects) {
 	std::list<std::list<Object*>> res;
 	for (auto i : presentObjects) {

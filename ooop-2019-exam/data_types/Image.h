@@ -8,7 +8,6 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
-//change it with your own date class if you wouldn't like to stick with Qt framework
 #include <QDateTime>
 #include <list>
 #include <string>
