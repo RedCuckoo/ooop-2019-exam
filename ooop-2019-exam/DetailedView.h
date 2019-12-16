@@ -9,10 +9,10 @@ class DetailedView : public QDialog{
 	Q_OBJECT
 
 public:
-	DetailedView(const std::list<Image>& allImages, const std::list<Object*>& allObjects, QWidget *parent = Q_NULLPTR);
+	DetailedView(size_t objIndex, QString objName, const std::vector<std::string>& present, const std::vector<std::string>& recognized, QWidget *parent = Q_NULLPTR);
 	~DetailedView();
 
-	QStringListModel* model;
+	//QStringListModel* model;
 private:
 	Ui::DetailedView ui;
 };
