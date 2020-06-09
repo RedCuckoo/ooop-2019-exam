@@ -8,7 +8,7 @@
 #ifndef NEIGHBOURRECOGNIZABLEOBJECT_H
 #define NEIGHBOURRECOGNIZABLEOBJECT_H
 
-#include "data_types/Object.h"
+#include "../Object.h"
 
 /*!
 \brief Typified Object

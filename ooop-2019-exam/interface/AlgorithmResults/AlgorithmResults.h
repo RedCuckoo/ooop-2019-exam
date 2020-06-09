@@ -10,7 +10,7 @@
 
 #include <QDialog>
 #include "ui_AlgorithmResults.h"
-#include "data_types/Object.h"
+#include "../../data_types/Object.h"
 
 /*!
 \brief Interface window

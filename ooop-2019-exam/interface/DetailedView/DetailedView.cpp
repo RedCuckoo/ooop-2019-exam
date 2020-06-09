@@ -1,6 +1,6 @@
 #include "DetailedView.h"
 #include <qstringlistmodel.h>
-#include "data_types/Image.h"
+#include "../../data_types/Image.h"
 #include <QTableWidgetItem>
 
 /*!

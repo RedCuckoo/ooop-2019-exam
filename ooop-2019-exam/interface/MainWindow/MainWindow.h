@@ -11,8 +11,8 @@
 #include <QtWidgets/QMainWindow>
 #include <list>
 #include "ui_MainWindow.h"
-#include "data_types/Image.h"
-#include "data_types/Object.h"
+#include "../../data_types/Image.h"
+#include "../../data_types/Object.h"
 #include <qstringlistmodel.h>
 
 class MainWindow : public QMainWindow{

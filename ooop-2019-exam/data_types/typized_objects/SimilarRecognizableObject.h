@@ -8,7 +8,7 @@
 #ifndef SIMILARRECOGNIZABLEOBJECT_H
 #define SIMILARRECOGNIZABLEOBJECT_H
 
-#include "data_types/Object.h"
+#include "../Object.h"
 
 /*!
 \brief Typified Object

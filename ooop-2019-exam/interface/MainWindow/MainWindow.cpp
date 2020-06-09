@@ -1,8 +1,8 @@
 #include "MainWindow.h"
 #include <qstringlistmodel.h>
-#include "interface/DetailedView/DetailedView.h"
+#include "../DetailedView/DetailedView.h"
 #include <QMessageBox>
-#include "interface/AlgorithmResults/AlgorithmResults.h"
+#include "../AlgorithmResults/AlgorithmResults.h"
 
 /*!
 \brief Constructor for main interface window MainWindow

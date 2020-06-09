@@ -8,7 +8,7 @@
 #ifndef BIRECOGNIZABLEOBJECT_H
 #define BIRECOGNIZABLEOBJECT_H
 
-#include "data_types/Object.h"
+#include "../Object.h"
 
 /*!
 \brief Typified Object
